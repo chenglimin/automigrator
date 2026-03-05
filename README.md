@@ -1,2 +1,2 @@
 # automigrator
-Here are the code for AutoMigrator
+The RVV operator code migrated by AutoMigrator has been commit to NCNN upstream, some PR has been merged.
