@@ -1,0 +1,15 @@
+
+---
+Migrate the groupnorm operator located in the directory:
+/openhands/code/ncnn_with_demo/src/layer/x86.
+to the directory:
+/openhands/code/ncnn_with_demo/src/layer/riscv, performing the migration of vector instructions from x86 to RISC-V.
+Absolute paths must be used to read files and to write the migrated files.
+
+
+---
+docker cp ~/ncnn_with_demo 2b072cb40c11:/openhands/code
+docker exec -it 2b072cb40c11 /bin/bash
+
+
+

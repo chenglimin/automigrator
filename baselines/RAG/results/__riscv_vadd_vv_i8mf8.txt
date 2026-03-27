@@ -1,0 +1,151 @@
+# RVV Query Result
+# Function: __riscv_vadd_vv_i8mf8
+# Time: 2026-01-13 07:24:29.970326
+================================================================================
+🔎 RVV 查询: __riscv_vadd_vv_i8mf8
+======================================================================
+✅ 命中 RVV JSON
+函数名: __riscv_vadd_vv_i8mf8
+Architecture: v
+Category(JSON): ['Integer|Add|Same-width']
+
+📡 Category 向量检索（Top-3）
+   - Integer Add Same-width         (Dist: 0.0544)
+   - Integer Multiply-add Same-width (Dist: 0.1280)
+   - Integer Multiply Same-width    (Dist: 0.2051)
+
+🚀 RVV 检索（分类约束）
+
+📂 分类: Integer Add Same-width
+   - __riscv_vadd_vv_i8mf8 (Dist: 0.2284)
+   - __riscv_vadd_vv_i8mf2 (Dist: 0.2336)
+   - __riscv_vadd_vv_i8mf4 (Dist: 0.2364)
+
+📂 分类: Integer Multiply-add Same-width
+   - __riscv_vmadd_vv_i8m8_tu (Dist: 0.2958)
+   - __riscv_vmadd_vv_u8mf8_tu (Dist: 0.2979)
+   - __riscv_vmadd_vx_i8mf8_tu (Dist: 0.2979)
+
+📂 分类: Integer Multiply Same-width
+   - __riscv_vmul_vv_i8mf8_tu (Dist: 0.3185)
+   - __riscv_vmul_vv_i8mf8 (Dist: 0.3201)
+   - __riscv_vmul_vv_u8mf8_m (Dist: 0.3225)
+
+✅ 全局排序 + 去重
+
+--- 推荐 1 ---
+Name: __riscv_vadd_vv_i8mf8
+Category: Integer Add Same-width
+Dist: 0.2284
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = op1[i] + op2[i];
+}
+for (size_t i = vl; i anything();
+return res;
+
+--- 推荐 2 ---
+Name: __riscv_vadd_vv_i8mf2
+Category: Integer Add Same-width
+Dist: 0.2336
+Logic:
+if (vl > vlmax(e8, mf2)) vl = __riscv_vsetvl_e8mf2(vl);
+vint8mf2_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = op1[i] + op2[i];
+}
+for (size_t i = vl; i anything();
+return res;
+
+--- 推荐 3 ---
+Name: __riscv_vadd_vv_i8mf4
+Category: Integer Add Same-width
+Dist: 0.2364
+Logic:
+if (vl > vlmax(e8, mf4)) vl = __riscv_vsetvl_e8mf4(vl);
+vint8mf4_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = op1[i] + op2[i];
+}
+for (size_t i = vl; i anything();
+return res;
+
+--- 推荐 4 ---
+Name: __riscv_vmadd_vv_i8m8_tu
+Category: Integer Multiply-add Same-width
+Dist: 0.2958
+Logic:
+if (vl > vlmax(e8, m8)) vl = __riscv_vsetvl_e8m8(vl);
+vint8m8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = (vd[i] * vs1[i]) + vs2[i];
+}
+for (size_t i = vl; i 
+return res;
+
+--- 推荐 5 ---
+Name: __riscv_vmadd_vv_u8mf8_tu
+Category: Integer Multiply-add Same-width
+Dist: 0.2979
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vuint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = (vd[i] * vs1[i]) + vs2[i];
+}
+for (size_t i = vl; i 
+return res;
+
+--- 推荐 6 ---
+Name: __riscv_vmadd_vx_i8mf8_tu
+Category: Integer Multiply-add Same-width
+Dist: 0.2979
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = (vd[i] * rs1) + vs2[i];
+}
+for (size_t i = vl; i 
+return res;
+
+--- 推荐 7 ---
+Name: __riscv_vmul_vv_i8mf8_tu
+Category: Integer Multiply Same-width
+Dist: 0.3185
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = op1[i] * op2[i];
+}
+for (size_t i = vl; i 
+return res;
+
+--- 推荐 8 ---
+Name: __riscv_vmul_vv_i8mf8
+Category: Integer Multiply Same-width
+Dist: 0.3201
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = op1[i] * op2[i];
+}
+for (size_t i = vl; i anything();
+return res;
+
+--- 推荐 9 ---
+Name: __riscv_vmul_vv_u8mf8_m
+Category: Integer Multiply Same-width
+Dist: 0.3225
+Logic:
+if (vl > vlmax(e8, mf8)) vl = __riscv_vsetvl_e8mf8(vl);
+vuint8mf8_t res;
+for (size_t i = 0; i < vl; i++) {
+  res[i] = mask[i] ? op1[i] * op2[i] : anything();
+}
+for (size_t i = vl; i anything();
+return res;

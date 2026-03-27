@@ -1,0 +1,95 @@
+
+docker ps -a
+
+---
+docker cp ~/ncnn_with_demo bd9209de5c48:/openhands/code
+docker cp ~/RAG_AVX_to_RVV bd9209de5c48:/openhands/code
+docker exec -it bd9209de5c48 /bin/bash
+poetry source add --priority=primary tuna https://pypi.tuna.tsinghua.edu.cn/simple
+poetry source add --priority=explicit pytorch-cpu https://download.pytorch.org/whl/cpu
+
+poetry add torch==2.2.2+cpu --source pytorch-cpu
+poetry add chromadb sentence-transformers beautifulsoup4 "numpy<2"
+
+测试：
+poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/query_rag.py "_mm256_adds_epi16"
+poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/rvv_rag.py "_mm256_adds_epi16"
+
+从sandbox里拷出来：
+docker cp bd9209de5c48:/openhands/code/ncnn_with_demo/src/layer/riscv/deconvolutiondepthwise_riscv.cpp ~/results_rag 
+
+然后!
+1. 记录金额
+2. export conversation
+3. 保存网页
+---
+
+
+
+---
+prompt:
+
+You are migrating the deconvolutiondepthwise operator from x86 to RISC-V.
+
+Source directory (x86 implementation):
+/openhands/code/ncnn_with_demo/src/layer/x86
+
+Target directory (RISC-V implementation):
+/openhands/code/ncnn_with_demo/src/layer/riscv
+
+Available reference tools (NOT OPTIONAL, but advisory only):
+
+1. X86-to-RVV reference tool:
+   cd /openhands/code
+   poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/query_rag.py "<X86_INTRINSIC>"
+
+   Behavior:
+   - This command generates a result file under the following absolute directory:
+     /openhands/code//RAG_AVX_to_RVV/RAG/results/
+
+   - The file contains:
+     - Semantically similar RVV intrinsics
+     - Categories
+     - Explanations and operation-level descriptions
+
+2. RVV-to-RVV reference tool:
+   cd /openhands/code
+   poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/rvv_rag.py "<RVV_INTRINSIC>"
+
+   Behavior:
+   - This command generates a result file under the following absolute directory:
+     /openhands/code//RAG_AVX_to_RVV/RAG/results/
+   - The file contains:
+     - Semantically similar RVV intrinsics
+     - Alternative instruction patterns
+     - Operation or logic-level descriptions
+
+Your task:
+
+1. Read the x86 implementation files using absolute paths from:
+   /openhands/code/ncnn_with_demo/src/layer/x86
+
+2. For each x86 intrinsic found in the implementation, you MUST invoke
+   the x86-to-RVV reference tool:
+   cd /openhands/code
+   poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/query_rag.py "<X86_INTRINSIC>"
+
+   After execution:
+   - Locate the generated result file using its absolute path:
+     /openhands/code/results/<X86_INTRINSIC>.txt
+   - Read and use its contents only as a reference to understand
+     possible RVV equivalents or implementation strategies.
+
+3. When selecting or refining an RVV implementation, you MUST invoke
+   the RVV-to-RVV reference tool:
+   cd /openhands/code
+   poetry run python /openhands/code/RAG_AVX_to_RVV/RAG/rvv_rag.py "<RVV_INTRINSIC>"
+
+   After execution:
+   - Locate the generated result file using its absolute path:
+     /openhands/code/results/<RVV_INTRINSIC>.txt
+   - Use it to explore alternative RVV intrinsics or instruction patterns
+     with similar semantics.
+
+4. Write the migrated RISC-V implementation using absolute paths into:
+   /openhands/code/ncnn_with_demo/src/layer/riscv
